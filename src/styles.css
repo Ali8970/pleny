@@ -1,1 +1,36 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+/* Reset default margins for all heading elements */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+}
+
+/* Set box-sizing to border-box for all elements */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Reset margins and padding for common elements */
+body,
+p,
+ul,
+ol,
+dl,
+blockquote,
+figure,
+hr,
+pre,
+table {
+  margin: 0;
+  padding: 0;
+}

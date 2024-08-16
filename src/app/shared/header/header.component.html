@@ -1,0 +1,44 @@
+<header>
+  <div class="container header">
+    <div class="left">
+      <div class="logo">
+        <img
+          src="../../../assets/Content.png"
+          alt="ClickTik Logo"
+          class="logo-image"
+        />
+        <span class="logo-text">ClickTik</span>
+      </div>
+
+      <nav class="nav">
+        <a class="nav-link">Home</a>
+      </nav>
+    </div>
+    @if(!isLoggedIn){
+    <div class="auth">
+      <a class="login-link">Log in</a>
+    </div>
+    } @else {
+    <div class="right">
+      <div class="search">
+        <input type="text" placeholder="Search" class="search-input" />
+        <img
+          src="../../../assets/Shape.png"
+          alt="Search icon image"
+          class="search-icon"
+        />
+      </div>
+
+      <div class="cart">
+        <img
+          src="../../../assets/Cart.png"
+          alt="Cart image"
+          class="cart-icon"
+        />
+        <span class="cart-counter">1</span>
+      </div>
+      <span class="account">Account</span>
+    </div>
+    }
+  </div>
+</header>
