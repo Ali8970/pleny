@@ -11,7 +11,7 @@
       </div>
 
       <nav class="nav">
-        <a class="nav-link">Home</a>
+        <a class="nav-link" routerLink="./view/products">Home</a>
       </nav>
     </div>
     @if(!isLoggedIn){
@@ -21,7 +21,12 @@
     } @else {
     <div class="right">
       <div class="search">
-        <input type="text" placeholder="Search" class="search-input" />
+        <input
+          type="text"
+          placeholder="Search"
+          class="search-input"
+          (keyup)="onSearchInput($event)"
+        />
         <img
           src="../../../assets/Shape.png"
           alt="Search icon image"
