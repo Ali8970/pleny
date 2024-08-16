@@ -5,20 +5,24 @@
     </div>
     <h2>Log in to your account</h2>
     <p>Welcome back! Please enter your details.</p>
-    <form>
+    <form [formGroup]="loginForm">
       <div class="input-group">
-        <label for="email">Email</label>
-        <input type="email" id="email" placeholder="Enter your email" />
+        <label for="username">User Name</label>
+        <input
+          type="text"
+          placeholder="Enter your email"
+          formControlName="username"
+        />
       </div>
       <div class="input-group">
         <label for="password">Password</label>
         <input
           type="password"
-          id="password"
+          formControlName="password"
           placeholder="Enter your password"
         />
       </div>
-      <button type="submit">Sign in</button>
+      <button type="button" (click)="onSubmit()">Sign in</button>
     </form>
   </div>
 </div>

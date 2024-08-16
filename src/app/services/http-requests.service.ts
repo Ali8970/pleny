@@ -5,7 +5,7 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
-import { catchError, map, throwError } from 'rxjs';
+import { catchError, map, Observable, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -50,7 +50,7 @@ export class HttpRequestsService {
    * @param body - The data to send in the body of the POST request.
    * @returns Observable with the response data.
    */
-  PostMethodWithPipe(Api_name: string, body: any) {
+  PostMethodWithPipe<T>(Api_name: string, body: any): Observable<T> {
     const options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -58,7 +58,7 @@ export class HttpRequestsService {
     };
 
     return this.http
-      .post(this.baseUrl + Api_name, body, options)
+      .post<T>(this.baseUrl + Api_name, body, options)
       .pipe(
         catchError((error: HttpErrorResponse) => this.handleErrorMessage(error))
       );
