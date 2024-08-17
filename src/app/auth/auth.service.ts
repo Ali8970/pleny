@@ -3,12 +3,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { tap, catchError, switchMap } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { environment } from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  baseUrl = `environment.base_url/auth`;
+  baseUrl = `${environment.base_url}auth`;
   private loggedInStatus = new BehaviorSubject<boolean>(false); // Tracks the user's login status
   private refreshTokenTimeout: any; // Stores the timeout reference for the token refresh
 
