@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { authGuard } from './auth/auth.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
@@ -10,6 +11,7 @@ export const routes: Routes = [
 
   {
     path: 'view',
+    canActivate: [authGuard],
     loadChildren: () => import('./view/view.routes').then((m) => m.routes),
   },
 ];

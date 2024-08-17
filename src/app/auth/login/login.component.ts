@@ -20,7 +20,7 @@ import { AuthService } from '../auth.service';
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   userData!: User;
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
   ngOnInit(): void {
     this.loginForm = new FormGroup({
       username: new FormControl('', Validators.required),
@@ -29,6 +29,8 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    this.authService.login(this.loginForm.value).subscribe(() => {});
+    this.authService.login(this.loginForm.value).subscribe(() => {
+      this.router.navigate(['./view/products']);
+    });
   }
 }
