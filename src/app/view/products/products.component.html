@@ -1,0 +1,77 @@
+<div class="container">
+  <div class="breadcrumb-container">
+    <h1 class="category-title">
+      {{ categoryName ? categoryName : "Products" }}
+    </h1>
+    <nav class="breadcrumb">
+      <a (click)="getAllProducts()">Home</a> /
+      <a (click)="getAllProducts()">Products</a>
+      <a class="current">
+        @if(categoryName) {<span> / </span>} {{ categoryName }}</a
+      >
+    </nav>
+  </div>
+  <main>
+    <div class="sidebar">
+      <h3 class="sidebar-title">Products</h3>
+      <ul class="category-list">
+        @for(category of categories; track category.name){
+        <li
+          (click)="filterByCategory(category)"
+          [ngClass]="{ active: category.name === selectedCategory }"
+        >
+          <a>{{ category.name }}</a>
+        </li>
+        }
+      </ul>
+    </div>
+
+    <div class="products">
+      @for(product of products; track product.id){
+      <div class="product-card">
+        <div class="discount-tag">{{ product.discountPercentage }}%</div>
+        <img [src]="product.images" alt="Product Image" class="product-image" />
+        <h2 class="product-title">{{ product.title }}</h2>
+        <p class="product-description">
+          {{ product.description }}
+        </p>
+        <p class="product-price">
+          <span class="original-price">{{ product.price }}USD</span>
+          {{
+            (
+              product.price -
+              (product.price * product.discountPercentage) / 100
+            ).toFixed(2)
+          }}USD
+        </p>
+        <p class="product-brand"><strong>Brand:</strong> {{ product.brand }}</p>
+        <p class="product-category">
+          <strong>Category:</strong> {{ product.category }}
+        </p>
+        <p class="product-stock">
+          <strong>In stock:</strong> {{ product.stock }}
+        </p>
+        <div class="product-rating">
+          <span class="star-rating">★ {{ product.rating }}</span>
+          <span class="review-count">({{ product.reviews.length }})</span>
+        </div>
+        <button class="add-to-cart-btn">ADD TO CART</button>
+      </div>
+      }
+    </div>
+  </main>
+  <div class="pagination">
+    <button (click)="previousPage()" [disabled]="currentPage === 1">
+      Previous
+    </button>
+    @for(page of pages; let i= $index; track page){<button
+      (click)="goToPage(page)"
+      [ngClass]="{ 'active-page': page === currentPage }"
+    >
+      {{ page }}</button
+    >}
+    <button (click)="nextPage()" [disabled]="currentPage === totalPages">
+      Next
+    </button>
+  </div>
+</div>

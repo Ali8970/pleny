@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class AuthService {
-  private baseUrl = 'https://dummyjson.com/auth'; // Base URL for the authentication API
+  baseUrl = `environment.base_url/auth`;
   private loggedInStatus = new BehaviorSubject<boolean>(false); // Tracks the user's login status
   private refreshTokenTimeout: any; // Stores the timeout reference for the token refresh
 
@@ -82,6 +82,7 @@ export class AuthService {
     this.setLoginStatus(false); // Set login status to false
     clearTimeout(this.refreshTokenTimeout); // Clear the token refresh timeout
     this.router.navigate(['./auth/login']);
+    this.setLoginStatus(true);
   }
 
   /**
