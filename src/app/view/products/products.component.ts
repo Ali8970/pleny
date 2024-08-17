@@ -3,6 +3,7 @@ import { ProductService } from './product.service';
 import { Category } from '../../interfaces/Category.model';
 import { Product, ProductResponse } from '../../interfaces/Product.model';
 import { CommonModule } from '@angular/common';
+import { CartService } from '../cart/cart.service';
 
 @Component({
   selector: 'app-products',
@@ -23,14 +24,10 @@ export class ProductsComponent {
   searchTerm: string = ''; // Store the current search term
   selectedCategory: string = '';
 
-  breadcrumbLinks = [
-    { name: 'Home', url: '#' },
-    { name: 'Products', url: '#' },
-    { name: 'Smart Phones', url: '#' },
-    { name: 'iPhone', url: null },
-  ];
-
-  constructor(private productService: ProductService) {}
+  constructor(
+    private productService: ProductService,
+    private cartService: CartService
+  ) {}
 
   /**
    * Initializes the component by fetching categories and products.
@@ -161,5 +158,11 @@ export class ProductsComponent {
       this.currentPage * this.pageSize
     );
   }
-  onAddToCart(product: Product) {}
+  /**
+   * Adds a product to the cart.
+   * @param product - The product to add.
+   */
+  onAddToCart(product: Product) {
+    this.cartService.addToCart(product);
+  }
 }

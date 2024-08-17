@@ -1,1 +1,18 @@
-<p>cart works!</p>
+<div class="cart-container">
+  <h2>Your Cart</h2>
+  @for(product of cartProducts; track product.id){
+  <div class="cart-item">
+    <img
+      [src]="product.thumbnail"
+      alt="{{ product.title }}"
+      class="product-thumbnail"
+    />
+    <div class="product-details">
+      <h3>{{ product.title }}</h3>
+      <p>{{ product.description }}</p>
+      <p><strong>Price:</strong> ${{ product.price }}</p>
+      <p><strong>Quantity:</strong> 1</p>
+    </div>
+  </div>
+  }
+</div>

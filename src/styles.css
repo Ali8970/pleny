@@ -1,8 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 body {
-  margin: 0;
   font-family: Arial, sans-serif;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
 }
 /* Reset default margins for all heading elements */
 h1,
@@ -34,4 +35,20 @@ pre,
 table {
   margin: 0;
   padding: 0;
+}
+/* to make footer in the end of the page*/
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+app-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+app-footer {
+  margin-top: auto;
 }

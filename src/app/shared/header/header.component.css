@@ -4,6 +4,11 @@
 }
 header {
   border-bottom: 1px solid #ccc;
+  position: fixed;
+  top: 0;
+  z-index: 1;
+  left: 0;
+  width: 100%;
 }
 .header {
   display: flex;
