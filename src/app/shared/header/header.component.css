@@ -88,6 +88,7 @@ header {
 }
 .cart {
   position: relative;
+  cursor: pointer;
 }
 .cart-icon {
   width: 24px;
