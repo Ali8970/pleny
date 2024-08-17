@@ -4,6 +4,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { tap, catchError, switchMap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment.development';
+import { User } from '../interfaces/User.model';
 
 @Injectable({
   providedIn: 'root',
@@ -38,10 +39,14 @@ export class AuthService {
    * @returns An observable of the server's response.
    */
   login(credentials: { email: string; password: string }): Observable<any> {
-    return this.http.post(`${this.baseUrl}/login`, credentials).pipe(
-      tap((response: any) => {
+    return this.http.post<User>(`${this.baseUrl}/login`, credentials).pipe(
+      tap((response: User) => {
         this.router.navigate(['./view/products']);
-        this.storeTokens(response.token, response.refreshToken); // Store the tokens locally
+        this.setInLocalStorage(
+          response.token,
+          response.refreshToken,
+          response.id
+        ); // Store the tokens locally
         this.setLoginStatus(true); // Set login status to true
         this.scheduleRefreshToken(30 * 60); // Schedule token refresh in 30 minutes
       })
@@ -49,13 +54,19 @@ export class AuthService {
   }
 
   /**
-   * Stores the token and refresh token in localStorage.
+   * Stores the token and refresh token and userId in localStorage.
    * @param token - The authentication token.
    * @param refreshToken - The refresh token.
+   * @param userId - The userId.
    */
-  private storeTokens(token: string, refreshToken: string): void {
+  private setInLocalStorage(
+    token: string,
+    refreshToken: string,
+    id: number
+  ): void {
     localStorage.setItem('token', token); // Store the token in localStorage
     localStorage.setItem('refreshToken', refreshToken); // Store the refresh token in localStorage
+    localStorage.setItem('userId', id.toString()); // Store the userId in localStorage
   }
 
   /**
@@ -104,14 +115,18 @@ export class AuthService {
     const refreshToken = this.getRefreshToken();
 
     return this.http
-      .post(`${this.baseUrl}/refresh`, {
+      .post<User>(`${this.baseUrl}/refresh`, {
         refreshToken: refreshToken,
         expiresInMins: 30, // Request a token with a 30-minute expiration
       })
       .pipe(
-        tap((response: any) => {
-          this.storeTokens(response.token, response.refreshToken); // Store the new tokens
-          this.scheduleRefreshToken(response.expiresInMins * 60); // Schedule the next refresh
+        tap((response: User) => {
+          this.setInLocalStorage(
+            response.token,
+            response.refreshToken,
+            response.id
+          ); // Store the new tokens
+          this.scheduleRefreshToken(30 * 60); // Schedule the next refresh
         }),
         catchError((error) => {
           this.logout(); // Log the user out on error

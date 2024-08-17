@@ -55,7 +55,9 @@
           <span class="star-rating">★ {{ product.rating }}</span>
           <span class="review-count">({{ product.reviews.length }})</span>
         </div>
-        <button class="add-to-cart-btn">ADD TO CART</button>
+        <button class="add-to-cart-btn" (click)="onAddToCart(product)">
+          ADD TO CART
+        </button>
       </div>
       }
     </div>

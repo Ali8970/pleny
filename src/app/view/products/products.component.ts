@@ -161,4 +161,5 @@ export class ProductsComponent {
       this.currentPage * this.pageSize
     );
   }
+  onAddToCart(product: Product) {}
 }
